@@ -5,6 +5,7 @@ Django for Python Programmers
    :maxdepth: 1
 
    chapter_01
+   fpp
    copyright
 
 Indices and tables

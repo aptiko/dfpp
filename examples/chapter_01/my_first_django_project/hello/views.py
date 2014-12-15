@@ -1,16 +1,21 @@
-import os
-import random
+import textwrap
 
-from django.views.generic.base import TemplateView
+from django.http import HttpResponse
+from django.views.generic.base import View
 
 
-class HomePageView(TemplateView):
-    template_name = 'home.html'
+class HomePageView(View):
 
-    def get_context_data(self):
-        random.seed()
-        context = {
-            'my_pid': os.getpid(),
-            'a_random': random.random(),
-        }
-        return context
+    def dispatch(request, *args, **kwargs):
+        response_text = textwrap.dedent('''\
+            <html>
+            <head>
+                <title>Greetings to the world</title>
+            </head>
+            <body>
+                <h1>Greetings to the world</h1>
+                <p>Hello, world!</p>
+            </body>
+            </html>
+        ''')
+        return HttpResponse(response_text)
