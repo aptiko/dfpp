@@ -203,3 +203,39 @@ The following things will now take place:
 2. Django will call the object's :meth:`dispatch()` method.
 3. :meth:`dispatch()` will return a :class:`HTTPResponse` object,
    which Django will use in order to provide the response.
+
+Unit testing
+------------
+
+Let's see how to :ref:`unit test <fpp>` our Django app. Remove file
+:file:`hello/tests.py`. Instead, create directory :file:`hello/tests`,
+an empty file :file:`hello/tests/__init__.py`, and a
+:file:`hello/tests/test_views.py`.
+
+In fact, our Django app is so simple that if we just used the file
+:file:`hello/tests.py` that Django created for us it would have been
+fine. However, your apps will rarely actually be that simple, and you
+will practically always create a :file:`tests` directory that will be
+containing various test modules. This happens to be standard practice
+as well, and it's better to get into that habit right from the start.
+We are naming our first test module :file:`test_views.py` because it
+tests the functionality of :file:`views.py`; this is also a standard
+convention. In any case, it is very important that its name begins
+with ``test``.
+
+These should be the contents of :file:`hello/tests/test_views.py`:
+
+.. literalinclude:: examples/chapter_01/my_first_django_project/hello/tests/test_views.py
+
+:class:`django.test.SimpleTestCase` inherits the Python standard
+library's :class:`unittest.TestCase`. It adds some Django-specific
+functionality. One is the :attr:`client` attribute, which contains an
+HTTP client which can create HTTP requests to the Django server. It
+also adds some extra assertion methods, of which we have used one
+here. The rest should be self-explanatory.
+
+You can run the unit tests simply like this:
+
+.. code-block:: sh
+
+   python manage.py test
